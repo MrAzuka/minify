@@ -1,7 +1,10 @@
 import express from "express";
 import dotenv from "dotenv";
 
-// TODO: importing routes
+// importing routes
+import indexRoute from "./src/routes/index.route.js"
+import userAuthRoute from "./src/routes/userAuth.route.js"
+
 
 dotenv.config();
 
@@ -13,8 +16,9 @@ app.use(express.urlencoded({
 }));
 app.use(express.json());
 
-// TODO: mount the route
-
+// mount the route
+app.use(indexRoute)
+app.use('/auth', userAuthRoute)
 
 // handling errors
 // create error
@@ -39,4 +43,4 @@ app.use((req, res, next) => {
     next();
 });
 
-module.exports = app;
+export default app

@@ -1,10 +1,10 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import pool from "../models/db"
+import pool from "../models/db.js"
 import {
     checkForUserQuery,
     insertUserQuery
-} from "../models/queries"
+} from "../models/queries.js"
 const {
     JWT_SECRET,
     JWT_EXPIRES
@@ -19,10 +19,11 @@ const signUp = async (req, res) => {
 
     // TODO: Create an input validator
 
+    try {
+        
     // Check if user exists
     const checkForUser = await pool.query(checkForUserQuery, [email])
-    try {
-        if (user.rows[0]) {
+        if (checkForUser.rows[0]) {
             return res.status(409).json({
                 status: 409,
                 error: ['User Already Exists'],
@@ -31,7 +32,7 @@ const signUp = async (req, res) => {
 
         const hashedPassword = await bcrypt.hash(password, 10)
 
-        const insertUser = await pool.query(insertUserQuery, [full_name, email, hashedPassword, NOW()])
+        const insertUser = await pool.query(insertUserQuery, [full_name, email, hashedPassword, "NOW()"])
         const token = jwt.sign({
             userID: insertUser.rows[0].id,
             email: insertUser.rows[0].email
@@ -45,9 +46,10 @@ const signUp = async (req, res) => {
             token,
         });
     } catch (err) {
-        return res.status(500).json({
+        console.log(err)
+        res.status(500).json({
             status: 500,
-            error: err.map(detail => detail.message),
+            err
         });
     }
 }

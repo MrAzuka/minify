@@ -4,7 +4,7 @@ const createUserTable = `CREATE TABLE users(
     id SERIAL PRIMARY KEY,
     full_name VARCHAR(250) NOT NULL,
     email VARCHAR(250) UNIQUE NOT NULL,
-    password VARCHAR(30) NOT NULL,
+    password VARCHAR(250) NOT NULL,
     registered timestamptz
 );`;
 
