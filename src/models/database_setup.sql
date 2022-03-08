@@ -4,9 +4,10 @@ CREATE DATABASE minify;
 -- CREATE USER TABLE
 CREATE TABLE users(
     id SERIAL PRIMARY KEY,
-    full_name VARCHAR(250),
-    email VARCHAR(250) UNIQUE,
-    password VARCHAR(30)
+    full_name VARCHAR(250) NOT NULL,
+    email VARCHAR(250) UNIQUE NOT NULL,
+    password VARCHAR(30) NOT NULL,
+    registered timestamptz
 );
 
 -- CREATE USER_FOLDER TABLE

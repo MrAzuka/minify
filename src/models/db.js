@@ -11,4 +11,8 @@ const pool = new Pool({
     port: 5432
 })
 
+pool.connect()
+  .then(() => console.log(`Pool connected successfully`))
+  .catch(e => console.log(e.stack));
+
 export default pool

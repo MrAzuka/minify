@@ -6,14 +6,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server",
-    "start": "node server"
+    "start": "node server",
+    "createDb": "node src/models/createTables.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MrAzuka/minify.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Azuka Olisemelie",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/MrAzuka/minify/issues"
