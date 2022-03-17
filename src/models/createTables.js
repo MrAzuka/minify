@@ -1,12 +1,18 @@
 import pool from './db';
 
 const createUserTable = `CREATE TABLE users(
-    id SERIAL PRIMARY KEY,
+    user_id SERIAL PRIMARY KEY,
     full_name VARCHAR(250) NOT NULL,
     email VARCHAR(250) UNIQUE NOT NULL,
     password VARCHAR(250) NOT NULL,
     registered timestamptz
 );`;
+
+const createFileTable = `CREATE TABLE user_file(
+  id SERIAL PRIMARY KEY,
+  file_url VARCHAR(250) NOT NULL,
+  user_id INT REFERENCES users(user_id) NOT NULL
+);`
 
 const runQuery = (query) => {
   pool.connect()
@@ -22,5 +28,5 @@ const runQuery = (query) => {
 };
 
 runQuery(
-  `DROP TABLE IF EXISTS ${createUserTable};`
+  `DROP TABLE IF EXISTS ${createUserTable}${createFileTable};`
 )
