@@ -42,7 +42,7 @@ const signIn = async (req, res) => {
         if (comparePassword) {
             // create a login token
             const token = jwt.sign({
-                userID: checkForUser.rows[0].id,
+                userID: checkForUser.rows[0].user_id,
                 email: checkForUser.rows[0].email
             }, JWT_SECRET, {
                 expiresIn: JWT_EXPIRES

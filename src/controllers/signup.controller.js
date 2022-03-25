@@ -34,7 +34,7 @@ const signUp = async (req, res) => {
 
         const insertUser = await pool.query(insertUserQuery, [full_name, email, hashedPassword, "NOW()"])
         const token = jwt.sign({
-            userID: insertUser.rows[0].id,
+            userID: insertUser.rows[0].user_id,
             email: insertUser.rows[0].email
         }, JWT_SECRET, {
             expiresIn: JWT_EXPIRES
