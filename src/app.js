@@ -1,5 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
+import morgan from "morgan";
+import helmet from "helmet";
+import cors from "cors";
 
 // importing routes
 import indexRoute from "./routes/index.route.js"
@@ -12,8 +15,11 @@ dotenv.config();
 const app = express();
 
 // Middleware
+app.use(morgan("dev"))
+app.use(helmet())
+app.use(cors())
 app.use(express.urlencoded({
-    extended: false
+    extended: true
 }));
 app.use(express.json());
 

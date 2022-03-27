@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import pool from '../models/db.js';
+import {validateSignin} from "../utils/signup.validator.js"
 import {
     checkForUserQuery
 } from "../models/queries.js"
@@ -14,8 +15,12 @@ const signIn = async (req, res) => {
         email,
         password
     } = req.body
+
+// input validator
+const validInput = validateSignin(email, password)
     try {
-        const checkForUser = await pool.query(checkForUserQuery, [email])
+        if (validInput) {
+            const checkForUser = await pool.query(checkForUserQuery, [email])
         let hashed = ""
         // Check if it doesn't exist
         if (!checkForUser.rowCount) {
@@ -53,6 +58,12 @@ const signIn = async (req, res) => {
                 message: 'Successfully logged in!',
                 token,
             });
+        } else{
+            console.log(validInput.error)
+            res.redirect("/auth/login")
+            // TODO: Flash error message to identify what input didn't validate
+            
+        }
         }
 
     } catch (err) {
