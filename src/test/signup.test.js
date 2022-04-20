@@ -86,6 +86,7 @@ describe('SignUp Process', () => {
     })
 
     afterAll(async () => {
+        await pool.query(deleteOneUser, [email])
         await pool.close();
     })
 })
