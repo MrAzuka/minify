@@ -26,7 +26,7 @@ const validInput = validateSignin(email, password)
         if (!checkForUser.rowCount) {
             return res.status(404).json({
                 status: 404,
-                error: ['Authentication Failed'],
+                error: 'Authentication Failed',
             });
         }
 
